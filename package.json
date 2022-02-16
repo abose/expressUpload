@@ -1,0 +1,23 @@
+{
+  "name": "expressupload",
+  "version": "1.0.0",
+  "description": "simple express file server and uploader",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abose/expressUpload.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abose/expressUpload/issues"
+  },
+  "homepage": "https://github.com/abose/expressUpload#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
