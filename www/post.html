@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    var uploadFormData = new FormData();
+    uploadFormData.append("path","text");
+    uploadFormData.append("files", new Blob(["hello world"], {type:"application/octet-stream"}), "yo.txt");
+    uploadFormData.append("files", new Blob(["sim sim"], {type:"application/octet-stream"}), "ye.txt");
+
+    $.ajax({
+        url : "/upload",
+        type : "POST",
+        data : uploadFormData,
+        cache : false,
+        contentType : false,
+        processData : false,
+        success : function(r) {
+            console.log("Success!", r);
+        },
+        error: function(r) {
+        console.log("Oops!", r);
+        }
+    });
+</script>
+</body>
+</html>
