@@ -11,7 +11,7 @@ var multipartUpload = multer({storage: multer.diskStorage({
         destination: function (req, file, callback) {
             let path = './userContent/'+req.body['path'] || './userContent';
             if (!fs.existsSync(path)) {
-                fs.mkdirSync(path);
+                fs.mkdirSync(path,{ recursive: true });
             }
             callback(null, path);
             },
