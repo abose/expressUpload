@@ -4,11 +4,12 @@ const multer  = require('multer')
 const fs = require('fs')
 const port = 3000
 
-app.use('/', express.static('www'))
+app.use('/', express.static('userContent'))
+app.use('/test', express.static('www'))
 
 var multipartUpload = multer({storage: multer.diskStorage({
         destination: function (req, file, callback) {
-            let path = './www/'+req.body['path'] || './www';
+            let path = './userContent/'+req.body['path'] || './userContent';
             if (!fs.existsSync(path)) {
                 fs.mkdirSync(path);
             }
@@ -16,8 +17,8 @@ var multipartUpload = multer({storage: multer.diskStorage({
             },
         filename: function (req, file, callback) {
             callback(null, file.originalname);
-        }})
-}).array('files');
+        }})})
+    .array('files');
 
 app.post('/upload', multipartUpload, function (req, res, next) {
     // req.files is array of `photos` files
