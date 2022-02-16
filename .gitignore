@@ -1,3 +1,7 @@
+# user content folder except index file
+userContent
+!userContent/index.html
+
 # Logs
 logs
 *.log
