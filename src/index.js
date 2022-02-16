@@ -2,7 +2,13 @@ const express = require('express')
 const app = express()
 const multer  = require('multer')
 const fs = require('fs')
+const cors =require('cors');
+
 const port = 3000
+
+app.use(cors({
+    methods: ['POST']
+}));
 
 app.use('/', express.static('userContent'))
 app.use('/test', express.static('www'))
