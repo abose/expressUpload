@@ -7,7 +7,7 @@ const cors =require('cors');
 const port = 3000
 
 app.use(cors({
-    methods: ['POST']
+    methods: ['POST', 'GET', 'OPTIONS']
 }));
 
 app.use('/', express.static('userContent'))
