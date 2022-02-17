@@ -22,6 +22,8 @@ var multipartUpload = multer({storage: multer.diskStorage({
             callback(null, path);
             },
         filename: function (req, file, callback) {
+            let path = `./userContent/${req.body['path']}/${file.originalname}` ;
+            console.log(`Update file(${req.files.length}): ${path}`);
             callback(null, file.originalname);
         }})})
     .array('files');
