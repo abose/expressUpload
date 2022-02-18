@@ -37,7 +37,7 @@ app.post('/upload', multipartUpload, function (req, res, next) {
     // req.files is array of `photos` files
     // req.body will contain the text fields, if there were any
     let clientIP= req.headers["x-real-ip"] || req.headers['X-Forwarded-For'] || req.socket.remoteAddress;
-    console.log(`${clientIP}: Downloading Site: ${downloadURL}`);
+    console.log(`${clientIP}: upload`);
     res.send('ok')
 })
 
