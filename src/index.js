@@ -4,7 +4,7 @@ import multer  from 'multer';
 import fs from 'fs';
 import path from 'path';
 import cors from 'cors'
-import { mkdtemp, rm } from 'fs/promises';
+import { mkdtemp, rm , mkdir} from 'fs/promises';
 import scrape from 'website-scraper';
 import zipper from 'zip-local';
 
@@ -64,6 +64,9 @@ app.get('/getWebsiteCode', async function (req, res, next) {
 
         console.log(`${clientIP}: Downloading Site: ${downloadURL}`);
         let siteName = new URL(downloadURL).hostname;
+        if(!fs.existsSync(TEMP_DIR)){
+            await mkdir(TEMP_DIR, {recursive: true});
+        }
         tempDir = path.join(TEMP_DIR, `${siteName}-`);
         tempDir = await mkdtemp(tempDir);
 
