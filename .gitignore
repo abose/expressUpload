@@ -1,6 +1,7 @@
 # user content folder except index file
 userContent
 !userContent/index.html
+temp
 
 # Logs
 logs
