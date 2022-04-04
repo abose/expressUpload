@@ -2,6 +2,7 @@ import express from 'express';
 const app = express()
 import multer  from 'multer';
 import fs from 'fs';
+import process from 'process';
 import path from 'path';
 import cors from 'cors'
 import { mkdtemp, rm , mkdir} from 'fs/promises';
@@ -17,6 +18,15 @@ app.use(cors({
 
 app.use('/p', express.static('userContent'))
 app.use('/test', express.static('www'))
+
+
+function redirectToPhcode(req, res) {
+    res.sendFile(path.join(process.cwd(), '/www/index.html'));
+}
+
+app.get('/', redirectToPhcode);
+app.get('/index.html', redirectToPhcode);
+app.get('/index.htm', redirectToPhcode);
 
 var multipartUpload = multer({storage: multer.diskStorage({
         destination: function (req, file, callback) {
