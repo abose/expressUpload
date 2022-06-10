@@ -150,6 +150,7 @@ app.get('/getGitHubZip', async function (req, res, next) {
             return;
         }
 
+        res.set('Content-Length', String(fileSizeInBytes));
         let readStream = fs.createReadStream(tempFilePath);
         readStream.pipe(res);
 
