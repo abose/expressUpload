@@ -157,6 +157,7 @@ app.get('/getGitHubZip', async function (req, res, next) {
         if(fileSizeInMegabytes > 25){
             res.status(413);
             res.send("File size too large. Phoenix services only support 25MB file size for non logged in users");
+            await _silentDeleteDir(tempFilePath);
             return;
         }
 
