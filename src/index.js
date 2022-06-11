@@ -11,15 +11,20 @@ import zipper from 'zip-local';
 import fetch from 'node-fetch';
 import crypto from'crypto';
 
-const downloadFile = (async (url, path) => {
+async function downloadFile(url, path) {
+    console.log("downloading file url: ", url)
     const res = await fetch(url);
+    if (res.status !== 200){
+        return res.status;
+    }
     const fileStream = fs.createWriteStream(path);
     await new Promise((resolve, reject) => {
         res.body.pipe(fileStream);
         res.body.on("error", reject);
         fileStream.on("finish", resolve);
     });
-});
+    return res.status;
+}
 
 const port = 3000;
 const TEMP_DIR = "./temp";
@@ -138,7 +143,12 @@ app.get('/getGitHubZip', async function (req, res, next) {
         await _ensureTempDirs();
         let zipURL = `https://api.github.com/repos/${downloadOrg}/${downloadRepo}/zipball`;
         let tempFilePath = `${TEMP_DIR}/GitHub/${downloadOrg}-${downloadRepo}-${crypto.randomBytes(4).readUInt32LE(0)}.zip`;
-        await downloadFile(zipURL, tempFilePath);
+        let downloadStatus = await downloadFile(zipURL, tempFilePath);
+        if(downloadStatus !== 200){
+            res.status(downloadStatus);
+            res.send("Download of git repo failed. See if repo exists or is publicly accessible.");
+            return;
+        }
 
         // GiHub does not put content size during zip file download, so we check size post download
         var stats = fs.statSync(tempFilePath)
